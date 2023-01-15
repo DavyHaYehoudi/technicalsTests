@@ -9,5 +9,24 @@ def majuscule(sentence):
 # A noter que la méthode title() fait le même job mais dans un mot contracté comme aren't elle rend Aren'T au lieu de Aren't
 
 # Comparer une note à la moyenne générale d'un ensemble de notes
+
+
 def better_than_average(class_points, your_points):
-    return  your_points> (sum(class_points)/len(class_points))
+    return your_points > (sum(class_points)/len(class_points))
+
+
+#  Vérifier la fin d'un mot avec 2 arguments : mot + fin
+def solution(string, ending):
+    return string.endswith(ending)
+
+# Dans un tableau de nombres, additionner les deux plus petits
+
+
+def sum_two_smallest_numbers(numbers):
+    return sum(sorted(numbers)[:2])
+
+# Somme de tous les entiers compris entre deux nombres
+
+
+def get_sum(a, b):
+    return (a+b)*(abs(b-a)+1)/2
