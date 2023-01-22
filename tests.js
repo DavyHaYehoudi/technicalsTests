@@ -25,17 +25,21 @@ function sumTwoSmallestNumbers(numbers) {
   return a + b;
 }
 // Somme de tous les entiers compris entre deux nombres (a,b) positifs ou négatifs
-// S = n(n+1)/2   pour (a,b) dans N+
-// S = (a + b) * (abs(b - a) + 1) / 2  pour (a,b) dans N
 function getSum(a, b) {
   let min = Math.min(a, b);
   let max = Math.max(a, b);
-  let nombres = Array.from({length: max - min + 1}, (_, i) => min + i);
+  let nombres = Array.from({ length: max - min + 1 }, (_, i) => min + i);
   return nombres.reduce((a, b) => a + b, 0);
 }
-console.log(getSum(11,-6));
-
+// ou encore
+// S = (a + b) * (abs(b - a) + 1) / 2  pour (a,b) dans N
 const GetSum2 = (a, b) => {
- return (a+b)*(Math.abs(b-a)+1)/2
+  return ((a + b) * (Math.abs(b - a) + 1)) / 2;
+};
+// retourne une phrase renversée avec chaque mot lui-même renversé
+function reverseWords(str) {
+  return str
+    .split(" ")
+    .map((word) => word.split("").reverse().join(""))
+    .join(" ");
 }
-console.log(GetSum2(11,11));

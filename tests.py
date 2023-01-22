@@ -14,8 +14,9 @@ def majuscule(sentence):
 def better_than_average(class_points, your_points):
     return your_points > (sum(class_points)/len(class_points))
 
-
 #  Vérifier la fin d'un mot avec 2 arguments : mot + fin
+
+
 def solution(string, ending):
     return string.endswith(ending)
 
@@ -30,3 +31,9 @@ def sum_two_smallest_numbers(numbers):
 
 def get_sum(a, b):
     return (a+b)*(abs(b-a)+1)/2
+
+# // retourne une phrase renversée avec chaque mot lui-même renversé
+
+
+def reverse_words(text):
+    return " ".join([word[::-1] for word in text.split(" ")])
