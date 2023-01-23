@@ -43,3 +43,7 @@ function reverseWords(str) {
     .map((word) => word.split("").reverse().join(""))
     .join(" ");
 }
+// Retourne le nombre de 1 dans la conversion d'un entier positif en binaire
+var countBits = function(n){
+  return n.toString(2).split("1").length-1
+};

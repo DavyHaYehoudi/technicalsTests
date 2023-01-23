@@ -37,3 +37,7 @@ def get_sum(a, b):
 
 def reverse_words(text):
     return " ".join([word[::-1] for word in text.split(" ")])
+
+# // Retourne le nombre de 1 dans la conversion d'un entier positif en binaire
+def count_bits(n):
+    return format(n,"b").count('1')
