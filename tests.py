@@ -39,5 +39,31 @@ def reverse_words(text):
     return " ".join([word[::-1] for word in text.split(" ")])
 
 # // Retourne le nombre de 1 dans la conversion d'un entier positif en binaire
+
+
 def count_bits(n):
-    return format(n,"b").count('1')
+    return format(n, "b").count('1')
+
+#  Vérifier si une phrase contient toutes les lettres de l'alphabet
+
+
+def is_pangram(s):
+    for letter in "abcdefghijklmnopqrstuvwxyz":
+        if letter not in s.lower():
+            return False
+    return True
+
+# // Deux tableaux. Retrouver le carré des éléments de l'un dans le second, quel que soit l'ordre. Même longueur. Vérifier aussi la multiplicité : autant de nombre que de racine.
+
+
+def comp(a, b):
+    if (a and b):
+        return sorted([x*x for x in a]) == sorted(b)
+    else:
+        return False
+
+# Vérifier qu'une chaîne de caractère contient autant de o que de x
+
+
+def xo(s):
+    return s.lower().count("o") == s.lower().count("x")
