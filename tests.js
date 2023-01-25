@@ -74,4 +74,55 @@ function XO(str) {
     str.toLowerCase().split("x").length === str.toLowerCase().split("o").length
   );
 }
+// Convertir les 1 et 0 d'un tableau en nombre
+const binaryArrayToNumber = (arr) => {
+  return parseInt(arr.join(""), 2);
+};
+
+// Retourne en chiffres romains un nombre compris entre 1 et 3999
+function solution(number) {
+  var lookup = {
+      M: 1000,
+      CM: 900,
+      D: 500,
+      CD: 400,
+      C: 100,
+      XC: 90,
+      L: 50,
+      XL: 40,
+      X: 10,
+      IX: 9,
+      V: 5,
+      IV: 4,
+      I: 1,
+    },
+    roman = "",
+    i;
+  for (i in lookup) {
+    while (number >= lookup[i]) {
+      roman += i;
+      number -= lookup[i];
+    }
+  }
+  return roman;
+}
+
+// Convertir des secondes <360 000  au format HH:MM:SS
+function humanReadable(seconds) {
+  let hours = 0,
+    minutes = 0;
+  while (seconds >= 60) {
+    minutes += 1;
+    seconds -= 60;
+  }
+  while (minutes >= 60) {
+    minutes -= 60;
+    hours += 1;
+  }
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
+  return `${hours}:${minutes}:${seconds}`;
+}
 

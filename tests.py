@@ -67,3 +67,40 @@ def comp(a, b):
 
 def xo(s):
     return s.lower().count("o") == s.lower().count("x")
+
+# Convertir les 1 et 0 d'un tableau en nombre
+
+
+def binary_array_to_number(arr):
+    return int(("".join([str(e) for e in arr])), 2)
+
+# Retourne en chiffres romains un nombre compris entre 1 et 3999
+
+
+def solution(n):
+    tableau = {"M": 1000, "CM": 900, "D": 500, "CD": 400, "C": 100,
+               "XC": 90, "L": 50, "XL": 40, "X": 10, "IX": 9, "V": 5, "IV": 4, "I": 1}
+
+    result = ""
+
+    for key in tableau:
+        while (n >= tableau[key]):
+            result += key
+            n -= tableau[key]
+    return result
+    
+# Convertir des secondes <360 000  au format HH:MM:SS
+def make_readable(seconds):
+    hours=0
+    minutes=0
+    while(seconds>=60):
+        seconds-=60
+        minutes+=1
+    while(minutes>=60):
+        minutes-=60
+        hours+=1
+    hours = hours if hours>9 else "0"+str(hours)
+    minutes = minutes if minutes>9 else "0"+str(minutes)
+    seconds = seconds if seconds>9 else "0"+str(seconds)
+
+    return f'{hours}:{minutes}:{seconds}'
