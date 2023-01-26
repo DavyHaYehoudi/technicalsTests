@@ -88,19 +88,41 @@ def solution(n):
             result += key
             n -= tableau[key]
     return result
-    
+
 # Convertir des secondes <360 000  au format HH:MM:SS
+
+
 def make_readable(seconds):
-    hours=0
-    minutes=0
-    while(seconds>=60):
-        seconds-=60
-        minutes+=1
-    while(minutes>=60):
-        minutes-=60
-        hours+=1
-    hours = hours if hours>9 else "0"+str(hours)
-    minutes = minutes if minutes>9 else "0"+str(minutes)
-    seconds = seconds if seconds>9 else "0"+str(seconds)
+    hours = 0
+    minutes = 0
+    while (seconds >= 60):
+        seconds -= 60
+        minutes += 1
+    while (minutes >= 60):
+        minutes -= 60
+        hours += 1
+    hours = hours if hours > 9 else "0"+str(hours)
+    minutes = minutes if minutes > 9 else "0"+str(minutes)
+    seconds = seconds if seconds > 9 else "0"+str(seconds)
 
     return f'{hours}:{minutes}:{seconds}'
+
+# // Pour chaque lettre d'un mot, si elle est unique dans le mot renvoyer ')' sinon '()'.Renvoyer le nouveau mot
+def duplicate_encode(word):
+    newWord=""
+    for letter in word:
+        if word.lower().count(letter.lower())>1:
+            newWord += ")"
+        else :
+            newWord += "("
+    return newWord
+
+print(duplicate_encode("recede"))
+
+# Trouver le plus petit nombre dans un tableau
+def find_smallest_int(arr):
+    return min(arr)
+
+# Somme de tous les nombres partant de 1 jusqu'à n, entier naturel positif
+def summation(num):
+    return (1+num)*(abs(num-1)+1)/2

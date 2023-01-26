@@ -126,3 +126,29 @@ function humanReadable(seconds) {
   return `${hours}:${minutes}:${seconds}`;
 }
 
+// Pour chaque lettre d'un mot, si elle est unique dans le mot renvoyer ')' sinon '()'.Renvoyer le nouveau mot
+function duplicateEncode(word) {
+  return word
+    .toLowerCase()
+    .split("")
+    .map(function (a, i, w) {
+      return w.indexOf(a) == w.lastIndexOf(a) ? "(" : ")";
+    })
+    .join("");
+}
+
+// Trouver le plus petit nombre dans un tableau
+class SmallestIntegerFinder {
+  findSmallestInt(args) {
+    return Math.min(...args);
+  }
+}
+// let finder = new SmallestIntegerFinder()
+// let nombMin = finder.findSmallestInt([0,1,2,4,,8])
+
+
+// Somme de tous les nombres partant de 1 jusqu'à n, entier naturel positif
+let summation = function (num) {
+  // return Array.from({length:num},(_,i)=>i+1).reduce((a,b)=>a+b,0)
+  return (1+num)*(Math.abs(num-1)+1)/2
+}
