@@ -146,9 +146,18 @@ class SmallestIntegerFinder {
 // let finder = new SmallestIntegerFinder()
 // let nombMin = finder.findSmallestInt([0,1,2,4,,8])
 
-
 // Somme de tous les nombres partant de 1 jusqu'à n, entier naturel positif
 let summation = function (num) {
   // return Array.from({length:num},(_,i)=>i+1).reduce((a,b)=>a+b,0)
-  return (1+num)*(Math.abs(num-1)+1)/2
+  return ((1 + num) * (Math.abs(num - 1) + 1)) / 2;
+};
+
+// Ecrire la string la plus longue en utilisant les lettres contenues dans 2 tableaux différents qui ne contiennent que des lettres. Chaque lettre de la string doit être unique et la string est ordonnée.
+let s1 = "xyaabbbccccdefww";
+let s2 = "xxxxyyyyabklmopq";
+function longest(s1, s2) {
+  return (s = Array.from(new Set(s1 + s2))
+    .sort()
+    .join(""));
 }
+console.log(longest(s1, s2));

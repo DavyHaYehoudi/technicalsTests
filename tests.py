@@ -108,21 +108,33 @@ def make_readable(seconds):
     return f'{hours}:{minutes}:{seconds}'
 
 # // Pour chaque lettre d'un mot, si elle est unique dans le mot renvoyer ')' sinon '()'.Renvoyer le nouveau mot
+
+
 def duplicate_encode(word):
-    newWord=""
+    newWord = ""
     for letter in word:
-        if word.lower().count(letter.lower())>1:
+        if word.lower().count(letter.lower()) > 1:
             newWord += ")"
-        else :
+        else:
             newWord += "("
     return newWord
 
-print(duplicate_encode("recede"))
 
 # Trouver le plus petit nombre dans un tableau
 def find_smallest_int(arr):
     return min(arr)
 
 # Somme de tous les nombres partant de 1 jusqu'à n, entier naturel positif
+
+
 def summation(num):
     return (1+num)*(abs(num-1)+1)/2
+
+
+#  Ecrire la string la plus longue en utilisant les lettres contenues dans 2 tableaux différents qui ne contiennent que des lettres. Chaque lettre de la string doit être unique et la string est ordonné
+a1 = "xyaabbbccccdefww"
+a2 = "xxxxyyyyabklmopq"
+
+
+def longest(a1, a2):
+    return "".join(sorted((set(a1+a2))))
