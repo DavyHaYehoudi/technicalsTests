@@ -160,4 +160,25 @@ function longest(s1, s2) {
     .sort()
     .join(""));
 }
-console.log(longest(s1, s2));
+
+//  Nombre premier ou pas. Rappel : divisible uniquement par deux diviseurs et pas un de plus : 1 et lui-même. Aide: inutile de tester un diviseur au-delà de sa racine carrée
+function isPrime(num) {
+  if (num <= 1) return false;
+  if (num === 2 || num === 3) return true;
+  for (let i = 2; i <= Math.sqrt(num); i++) {
+    if (num % i == 0) return false;
+  }
+  return true;
+}
+// Transformer un string contenant un "nom prénom" en initiales
+function abbrevName(name) {
+  return name
+    .split(" ")[0][0]
+    .toUpperCase()
+    .concat("." + name.split(" ")[1][0].toUpperCase());
+}
+
+// Renvoyer l'iterable en supprimant les doublons consécutifs tout en préservant l'ordre initial des caractères. iterable= string ou [ ]
+let uniqueInOrder = function (iterable) {
+  return [...iterable].filter((a, i) => a !== iterable[i-1])
+};

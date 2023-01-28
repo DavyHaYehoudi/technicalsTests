@@ -1,4 +1,7 @@
 # Somme des nombres d'un tableau
+from math import sqrt
+
+
 def additional(a):
     return sum(a)
 
@@ -138,3 +141,28 @@ a2 = "xxxxyyyyabklmopq"
 
 def longest(a1, a2):
     return "".join(sorted((set(a1+a2))))
+
+
+# Nombre premier ou pas. Rappel : divisible uniquement par deux diviseurs et pas un de plus : 1 et lui-même. Aide: inutile de tester un diviseur au-delà de sa racine carrée.
+
+
+def is_prime(num):
+    if num <= 1:
+        return False
+    for i in range(2, int(sqrt(num))+1):
+        if num % i == 0:
+            return False
+    return True
+
+# Transformer un string contenant un "nom prénom" en initiales
+
+
+def abbrev_name(name):
+    return name.split(" ")[0][0].upper()+"."+name.split(" ")[1][0].upper()
+
+# Renvoyer l'iterable en supprimant les doublons consécutifs tout en préservant l'ordre initial des caractères. iterable= string ou [ ]
+
+
+def unique_in_order(sequence):
+
+    return [a for i, a in enumerate(sequence) if i == 0 or a != sequence[i-1]]
