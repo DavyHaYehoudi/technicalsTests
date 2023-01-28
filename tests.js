@@ -180,5 +180,22 @@ function abbrevName(name) {
 
 // Renvoyer l'iterable en supprimant les doublons consécutifs tout en préservant l'ordre initial des caractères. iterable= string ou [ ]
 let uniqueInOrder = function (iterable) {
-  return [...iterable].filter((a, i) => a !== iterable[i-1])
+  return [...iterable].filter((a, i) => a !== iterable[i - 1]);
+};
+// Fibonacci : accéder à une valeur quelconque
+const fibonacci = (x) => {
+  let n1 = 0;
+  let n2 = 1;
+  let somme = 0;
+  for (let i = 2; i <= x; i++) {
+    somme = n1 + n2;
+    n1 = n2;
+    n2 = somme;
+  }
+  return x ? n2 : n1;
+};
+// Fibonacci : récursivité
+const fibonacciR = (x) => {
+  if (x < 2) return x;
+  return fibonacciR(x - 1) + fibonacci(x - 2);
 };

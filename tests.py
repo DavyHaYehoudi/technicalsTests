@@ -166,3 +166,24 @@ def abbrev_name(name):
 def unique_in_order(sequence):
 
     return [a for i, a in enumerate(sequence) if i == 0 or a != sequence[i-1]]
+
+# // Fibonacci : accéder à une valeur quelconque
+
+
+def fibonacci(x):
+    n1 = 0
+    n2 = 1
+    somme = 0
+    for i in range(1, x):
+        somme = n1+n2
+        n1 = n2
+        n2 = somme
+    return n2 if x else n1
+
+#  Fibonacci : récursivité
+
+
+def fibonacciR(x):
+    if x < 2:
+        return x
+    return fibonacci(x-1)+fibonacci(x-2)
