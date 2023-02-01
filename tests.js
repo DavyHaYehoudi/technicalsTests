@@ -199,3 +199,41 @@ const fibonacciR = (x) => {
   if (x < 2) return x;
   return fibonacciR(x - 1) + fibonacci(x - 2);
 };
+
+// Fibonacci mémoïsation
+let dictionnaire = new Map();
+const fibonacciM = (x) => {
+  if (dictionnaire.has(x)) {
+    return dictionnaire.get(x);
+  }
+  if (x < 2) {
+    return 1;
+  }
+  let result = fibonacciM(x - 1) + fibonacciM(x - 2);
+
+  dictionnaire.set(x, result);
+  return result;
+};
+
+// Mettre au carré chaque chiffre d'un nombre et concaténer le tout
+//ex:765=>493625 et 9119=>811181
+function squareDigits(num) {
+  return Number(
+    String(num)
+      .split("")
+      .map((x) => Math.pow(Number(x), 2))
+      .join("")
+  );
+}
+
+// # Retourner au format string la valeur d'un boolean
+function booleanToString(b) {
+  return String(b);
+}
+
+function sumStrings(a,b) { 
+  return String(Number(a)+Number(b))
+  
+}
+// console.log(typeof sumStrings("123","456"));
+console.log(Number(cinq));

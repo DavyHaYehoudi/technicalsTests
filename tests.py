@@ -187,3 +187,24 @@ def fibonacciR(x):
     if x < 2:
         return x
     return fibonacci(x-1)+fibonacci(x-2)
+
+# Fibonacci mémoïsation
+fibonacci_dict = {}
+def fibonacciM(n):
+    if n in fibonacci_dict:
+        return fibonacci_dict[n]
+    if n < 2:
+        return 1
+    result = fibonacci(n-1) + fibonacci(n-2)
+    fibonacci_dict[n] = result
+    return result
+
+# // Mettre au carré chaque chiffre d'un nombre et concaténer le tout
+
+
+def square_digits(num):
+    return int("".join(str(pow(int(n), 2)) for n in str(num)))
+
+# Retourner au format string la valeur d'un boolean
+def boolean_to_string(b):
+    return str(b)
