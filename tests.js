@@ -1,5 +1,5 @@
 // Somme des nombres d'un tableau
-function addition(a) {
+function sumNumbersOfArray(a) {
   let somme = a.reduce((a, b) => a + b, 0);
   return somme;
 }
@@ -16,16 +16,16 @@ function betterThanAverage(classPoints, yourPoints) {
   );
 }
 // Vérifier la fin d'un mot avec 2 arguments : mot + fin
-function solution(str, ending) {
+function evaluateEndWord(str, ending) {
   return str.endsWith(ending);
 }
 // Dans un tableau de nombres, additionner les deux plus petits
-function sumTwoSmallestNumbers(numbers) {
+function sumTwoSmallestNumbersofArray(numbers) {
   let [a, b] = numbers.sort((a, b) => a - b);
   return a + b;
 }
 // Somme de tous les entiers compris entre deux nombres (a,b) positifs ou négatifs
-function getSum(a, b) {
+function sumIntegers_1(a, b) {
   let min = Math.min(a, b);
   let max = Math.max(a, b);
   let nombres = Array.from({ length: max - min + 1 }, (_, i) => min + i);
@@ -33,18 +33,19 @@ function getSum(a, b) {
 }
 // ou encore
 // S = (a + b) * (abs(b - a) + 1) / 2  pour (a,b) dans N
-const GetSum2 = (a, b) => {
+const sumIntegers_2 = (a, b) => {
   return ((a + b) * (Math.abs(b - a) + 1)) / 2;
 };
+
 // retourne une phrase renversée avec chaque mot lui-même renversé
-function reverseWords(str) {
+function reverseWordsInReverseSentence(str) {
   return str
     .split(" ")
     .map((word) => word.split("").reverse().join(""))
     .join(" ");
 }
 // Retourne le nombre de 1 dans la conversion d'un entier positif en binaire
-var countBits = function (n) {
+var countBits_0f_1_inIntegerConvertedToBinary = function (n) {
   return n.toString(2).split("1").length - 1;
 };
 
@@ -69,7 +70,7 @@ function comp(a, b) {
 }
 
 // Vérifier qu'une chaîne de caractère contient autant de o que de x
-function XO(str) {
+function countXOinString(str) {
   return (
     str.toLowerCase().split("x").length === str.toLowerCase().split("o").length
   );
@@ -80,7 +81,7 @@ const binaryArrayToNumber = (arr) => {
 };
 
 // Retourne en chiffres romains un nombre compris entre 1 et 3999
-function solution(number) {
+function numberToRoman(number) {
   var lookup = {
       M: 1000,
       CM: 900,
@@ -108,7 +109,7 @@ function solution(number) {
 }
 
 // Convertir des secondes <360 000  au format HH:MM:SS
-function humanReadable(seconds) {
+function timeHumanReadable(seconds) {
   let hours = 0,
     minutes = 0;
   while (seconds >= 60) {
@@ -146,12 +147,6 @@ class SmallestIntegerFinder {
 // let finder = new SmallestIntegerFinder()
 // let nombMin = finder.findSmallestInt([0,1,2,4,,8])
 
-// Somme de tous les nombres partant de 1 jusqu'à n, entier naturel positif
-let summation = function (num) {
-  // return Array.from({length:num},(_,i)=>i+1).reduce((a,b)=>a+b,0)
-  return ((1 + num) * (Math.abs(num - 1) + 1)) / 2;
-};
-
 // Ecrire la string la plus longue en utilisant les lettres contenues dans 2 tableaux différents qui ne contiennent que des lettres. Chaque lettre de la string doit être unique et la string est ordonnée.
 let s1 = "xyaabbbccccdefww";
 let s2 = "xxxxyyyyabklmopq";
@@ -183,7 +178,7 @@ let uniqueInOrder = function (iterable) {
   return [...iterable].filter((a, i) => a !== iterable[i - 1]);
 };
 // Fibonacci : accéder à une valeur quelconque
-const fibonacci = (x) => {
+const fibonacciAccessToOneValue = (x) => {
   let n1 = 0;
   let n2 = 1;
   let somme = 0;
@@ -195,21 +190,21 @@ const fibonacci = (x) => {
   return x ? n2 : n1;
 };
 // Fibonacci : récursivité
-const fibonacciR = (x) => {
+const fibonacciRecurs = (x) => {
   if (x < 2) return x;
-  return fibonacciR(x - 1) + fibonacci(x - 2);
+  return fibonacciRecurs(x - 1) + fibonacciAccessToOneValue(x - 2);
 };
 
 // Fibonacci mémoïsation
 let dictionnaire = new Map();
-const fibonacciM = (x) => {
+const fibonacciMemoisation = (x) => {
   if (dictionnaire.has(x)) {
     return dictionnaire.get(x);
   }
   if (x < 2) {
     return 1;
   }
-  let result = fibonacciM(x - 1) + fibonacciM(x - 2);
+  let result = fibonacciMemoisation(x - 1) + fibonacciMemoisation(x - 2);
 
   dictionnaire.set(x, result);
   return result;
@@ -225,15 +220,3 @@ function squareDigits(num) {
       .join("")
   );
 }
-
-// # Retourner au format string la valeur d'un boolean
-function booleanToString(b) {
-  return String(b);
-}
-
-function sumStrings(a,b) { 
-  return String(Number(a)+Number(b))
-  
-}
-// console.log(typeof sumStrings("123","456"));
-console.log(Number(cinq));
