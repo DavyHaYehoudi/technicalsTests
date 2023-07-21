@@ -220,3 +220,145 @@ function squareDigits(num) {
       .join("")
   );
 }
+// Retourner l'opposé d'un nombre, qu'il soit positif, négatif ou nul
+function oppositeNumber(num) {
+  return -num;
+}
+
+// 3 façons de retourner la valeur minimale d'un tableau
+function smallestNumberInArray(arr) {
+  // 1
+  return Math.min(...arr);
+  // 2
+  return arr.reduce((a, b) => (a < b ? a : b));
+  // 3
+  return arr.sort((a, b) => a - b)[0];
+}
+// Supprimer les espaces dans une phrase
+function noSpace(x) {
+  // 1
+  return x.replaceAll(" ", "");
+  // 2
+  return x.replace(/ /g, "");
+}
+
+// retourner les 2 plus grands chiffres d'une liste
+function twoHighest(arr) {
+  const duplicate = [...new Set(arr)];
+  const sorted = duplicate.sort((a, b) => b - a);
+  return sorted.slice(0, 2);
+}
+
+// Renverser les chiffres d'un nombre
+function digitize(n) {
+  // 1
+  return Array.from(Array.from(String(n)).reverse(), (x) => Number(x));
+  // 2
+  function digitize(n) {
+    return String(n).split("").reverse().map(Number);
+  }
+}
+
+// Enumérer dans un tableau tous les entiers partant de 1 jusqu'à un chiffre n
+function monkeyCount(n) {
+  // 1
+  let arr = [];
+  for (let i = 1; i <= n; i++) {
+    arr.push(i);
+  }
+  return arr;
+  // 2
+  return Array.from({ length: n }, (_, i) => i + 1);
+}
+
+// Supprimer les doublons d'un tableau
+const arr = [1, 2, 2, 3, 4, 4, 5];
+
+function duplicateArr(arr) {
+  // 1
+  arr.filter((value, index, self) => {
+    return self.indexOf(value) === index;
+  });
+  // 2
+  return [...set(arr)];
+}
+// On donne un tableau d'entiers.
+// Renvoyer un autre tableau qui contient 2 valeurs.
+//  La 1ere est le nombre d'entiers positifs et la seconde est la somme des entiers négatifs
+// tip: avec reduce() on peut utiliser un tableau comme accumulateur
+function countPositivesSumNegatives(input) {
+  if (input.length === 0 || input === null) {
+    return [];
+  }
+  return input.reduce(
+    (a, b) => {
+      if (b > 0) {
+        a[0]++;
+      } else if (b < 0) {
+        a[1] = a + b;
+      }
+    },
+    [0, 0]
+  );
+}
+// Trouver le prochain doubleton. Rappel : un nombre qui contient exactement 2 chiffres différents, ni plus ni moins.
+// On nous donne un entier. Même si ce dernier est déjà un doubleton il faut trouver le suivant.
+// warning 1: number n'est pas itérable =>String
+// warning 2: éviter de déclarer des variables en dehors de la boucle while, il vaut mieux s'arranger pour l'insérer directement dans la condition de bouclage, autrement il faut penser dans le corps du while à les actualiser.
+function doubleton(num) {
+  let n0 = num + 1;
+  while (new Set(String(n0)).size !== 2) {
+    n0++;
+  }
+  return n0;
+}
+// Pour trouver l'intersection de 2 sets
+// info: on peut appliquer le spread operator sur un Set
+function union(s1, s2) {
+  return new Set([...s1, ...s2]);
+}
+
+// Retourner false pour une phrase contenant des espaces en début ou en fin de ligne d'une part, ou bien aussi si elle contient au milieu au moins 2 espaces vides, sinon retourner true.
+function validSpacing(s) {
+  return s.trim() === s && !s.includes("  ");
+}
+// Retourner le ratio sous forme de string, et non de résultat de fraction, le ration du nombre de lettres erronnées sur le nombre total de lettres de la phrase. Une lettre erronnée est celle qui se situe après le 'm'
+function printerError(s) {
+  let countError = s.split("").reduce((a, b) => (b <= "m" ? a : (a += 1)), 0);
+  return `${countError}/${s.length}`;
+}
+// Avec une Regex, c'est du one-liner
+function printerError2(s) {
+  return `${s.match(/[n-z]/g).length}/${s.length}`;
+}
+// On donne une string de parenthèses, retourner si l'ordre est valide
+// "()"              =>  true
+// ")(()))"          =>  false
+// "("               =>  false
+// "(())((()())())"  =>  true
+function validParentheses1(parens) {
+  if (parens === "(" || parens === ")" || parens.length % 2 !== 0) {
+    return false;
+  }
+  for (let i = 0; i < parens.length; i++) {
+    if (parens[i] === "(" && parens.at(-i - 1) !== ")") {
+      return false;
+    }
+  }
+  return true;
+}
+function validParentheses2(parens) {
+  let n = 0;
+  for (let i = 0; i < parens.length; i++) {
+    if (parens[i] === "(") {
+      n++;
+    }
+    if (parens[i] === ")") {
+      n--;
+    }
+    if (n < 0) {
+      return false;
+    }
+  }
+  return n === 0;
+}
