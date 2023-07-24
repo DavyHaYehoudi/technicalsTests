@@ -362,3 +362,215 @@ function validParentheses2(parens) {
   }
   return n === 0;
 }
+// retourner une string de chiffres de faux binaire dans le sens où tout chiffre inférieur à 5 se trnasforme en 0 et s'il est supérieur ou égal à 5 il devient 1
+// warning: quand on a split, pas besoin de convertir en Number, c'est implicite
+function fakeBin1(x) {
+  let bin = "";
+  for (l of x) {
+    l < 5 ? (bin += "0") : (bin += "1");
+  }
+  return bin;
+}
+function fakeBin2(x) {
+  return x.split("").reduce((a, b) => (b < 5 ? (a += "0") : (a += "1")), "");
+}
+function fakeBin3(x) {
+  return x
+    .split("")
+    .map((a) => (a < 5 ? 0 : 1))
+    .join("");
+}
+
+// Masquer une chaine de caractère avec des # et ne laisser apparent que les 4 derniers caractères
+function maskify1(cc) {
+  if (cc.length > 4) {
+    let ccArr = cc.split("");
+    for (let i = 0; i < ccArr.length; i++) {
+      while (i < ccArr.length - 4) {
+        ccArr[i] = "#";
+        i++;
+      }
+      return ccArr.join("");
+    }
+  }
+  return cc;
+}
+function maskify2(cc) {
+  return cc.length < 4 ? cc : "#".repeat(cc.length - 4) + cc.slice(-4);
+}
+function maskify3(cc) {
+  return cc.slice(0, -4).replace(/./g, "#") + cc.slice(-4);
+}
+function validBraces(braces) {
+  const curleyBrackets = [
+    ["(", ")"],
+    ["{", "}"],
+    ["[", "]"],
+  ];
+  const myMap = new Map(curleyBrackets);
+
+  const stack = [];
+
+  for (let i = 0; i < braces.length; i++) {
+    const currentChar = braces[i];
+    if (myMap.has(currentChar)) {
+      // Si le caractère est une ouverture d'accolade, de parenthèse ou de crochet,
+      // on l'ajoute à la pile.
+      stack.push(currentChar);
+    } else {
+      // Si le caractère est une fermeture d'accolade, de parenthèse ou de crochet,
+      // on vérifie s'il correspond à la dernière ouverture ajoutée à la pile.
+      const lastOpening = stack.pop();
+      if (!lastOpening || myMap.get(lastOpening) !== currentChar) {
+        // Si le dernier caractère ouvrant ne correspond pas à la fermeture actuelle,
+        // ou s'il n'y a pas de caractère ouvrant précédent, la chaîne est mal équilibrée.
+        return false;
+      }
+    }
+  }
+
+  // À la fin, si la pile est vide, cela signifie que toutes les paires d'accolades, de parenthèses
+  // et de crochets étaient correctement équilibrées.
+  return stack.length === 0;
+}
+
+// Retourner sous forme d'objet, le nombre de fois qu'apparaît chaque lettre dans un mot kyu 6
+function count1(string) {
+  const myMap = new Map();
+  if (string.length > 0) {
+    for (let i = 0; i < string.length; i++) {
+      const char = string[i];
+      // Si le caractère existe déjà dans la Map, on incrémente son compteur
+      if (myMap.has(char)) {
+        myMap.set(char, myMap.get(char) + 1);
+      } else {
+        // Sinon, on ajoute le caractère à la Map avec un compteur initial de 1
+        myMap.set(char, 1);
+      }
+    }
+  } else {
+    return {};
+  }
+
+  return Object.fromEntries(myMap); // Convertit la Map en objet avant de le renvoyer
+}
+
+function count2(string) {
+  let stack = {};
+  if (string.length > 0) {
+    for (let i = 0; i < string.length; i++) {
+      if (stack[string[i]]) {
+        stack[string[i]] += 1;
+      } else {
+        stack[string[i]] = 1;
+      }
+    }
+  } else {
+    return stack;
+  }
+  return stack;
+}
+function count3(string) {
+  let dict = {};
+  for (let lettre of string) {
+    dict[lettre] = dict[lettre] !== undefined ? dict[lettre] + 1 : 1;
+  }
+  return dict;
+}
+
+// Retourner un objet qui contient le nombre de fois qu'apparaît chaque élément d'un tableau
+function count(array) {
+  let dict = {};
+  for (item of array) {
+    dict[item] = dict[item] !== undefined ? (dict[item] += 1) : 1;
+  }
+  return dict;
+}
+// Retourner un objet qui contient le nombre de fois qu'apparaît un nucléotide, donc A,C,G ou T
+function getCountedNucleotides(genCode) {
+  let dict = { A: 0, C: 0, G: 0, T: 0 };
+  let genCodeUppCase = genCode.toUpperCase();
+  for (n of genCodeUppCase) {
+    dict[n] += 1;
+  }
+  return dict;
+}
+// Retourner sous forme de tableau d'association occurence/fréquence, [ [a,1],[b,2],[c,3] ]
+const orderedCount = function (text) {
+  let myMap = new Map();
+  for (l of text) {
+    if (myMap.has(l)) {
+      myMap.set(l, myMap.get(l) + 1);
+    } else {
+      myMap.set(l, 1);
+    }
+  }
+  return Array.from(myMap.entries());
+};
+// function countCharsBarGraph(text, maxw) {
+//   text = text.toUpperCase();
+//   let dict = {};
+//   for (occ of text) {
+//     dict[occ] = dict[occ] !== undefined ? dict[occ] + 1 : 1;
+//   }
+//   console.log(dict);
+//   let dictSorted = Object.keys(dict).sort((a, b) => {
+//     return dict[b] !== dict[a] ? dict[b] - dict[a] : a.localeCompare(b);
+//   });
+
+//   const ratio = Math.floor(maxw / text.length);
+
+//   dictSorted.forEach((item,i) => {
+//     item = "#".repeat(ratio) + "\n";
+//   });
+//   return dictSorted;
+// }
+
+// Vérifier que chaque occurence apparaît le même nombre de fois que les autres occurences de la même string
+function validateWord(s) {
+  s = s.toLowerCase();
+  let dict = {};
+  for (c of s) {
+    dict[c] = dict[c] !== undefined ? dict[c] + 1 : 1;
+  }
+  const res = new Set(Object.values(dict));
+  return res.size === 1;
+}
+// Nombre de fois qu'un caractère est répéter au moins une fois
+function duplicateCount(text) {
+  text = text.toLowerCase();
+  let dict = {};
+  for (l of text) {
+    dict[l] = dict[l] !== undefined ? dict[l] + 1 : 1;
+  }
+  let values = Object.values(dict);
+  return values.reduce((a, b) => (b > 1 ? a + 1 : a), 0);
+}
+// Dans une entrée items, donner le nombre maximal de fois que le caractère, donné par la key, se répète de manière consécutive
+function getConsectiveItems1(items, key) {
+  let stack = "";
+  items = String(items);
+  key = String(key)
+  for (l of items) {
+    l === String(key) ? (stack += l) : (stack += "s__");
+  }
+  let arr = stack.split("s__");
+  return arr.reduce((a, b) => (b.length > a.length ? b : a)).length;
+}
+function getConsectiveItems2(items, key){
+  items = String(items);
+  key = String(key);
+  let compteur = 0;
+  let max = 0;
+  for (let symbole of items) {
+    if (symbole === key) {
+      compteur++;
+      if (compteur > max) {
+        max = compteur;
+      }
+    } else {
+      compteur = 0;
+    }
+  }
+  return max;
+}
