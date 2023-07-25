@@ -45,7 +45,7 @@ function reverseWordsInReverseSentence(str) {
     .join(" ");
 }
 // Retourne le nombre de 1 dans la conversion d'un entier positif en binaire
-var countBits_0f_1_inIntegerConvertedToBinary = function (n) {
+let countBits_0f_1_inIntegerConvertedToBinary = function (n) {
   return n.toString(2).split("1").length - 1;
 };
 
@@ -106,36 +106,6 @@ function numberToRoman(number) {
     }
   }
   return roman;
-}
-
-// Convertir des secondes <360 000  au format HH:MM:SS
-function timeHumanReadable(seconds) {
-  let hours = 0,
-    minutes = 0;
-  while (seconds >= 60) {
-    minutes += 1;
-    seconds -= 60;
-  }
-  while (minutes >= 60) {
-    minutes -= 60;
-    hours += 1;
-  }
-  hours = hours < 10 ? "0" + hours : hours;
-  minutes = minutes < 10 ? "0" + minutes : minutes;
-  seconds = seconds < 10 ? "0" + seconds : seconds;
-
-  return `${hours}:${minutes}:${seconds}`;
-}
-
-// Pour chaque lettre d'un mot, si elle est unique dans le mot renvoyer ')' sinon '()'.Renvoyer le nouveau mot
-function duplicateEncode(word) {
-  return word
-    .toLowerCase()
-    .split("")
-    .map(function (a, i, w) {
-      return w.indexOf(a) == w.lastIndexOf(a) ? "(" : ")";
-    })
-    .join("");
 }
 
 // Trouver le plus petit nombre dans un tableau
@@ -500,9 +470,11 @@ const orderedCount = function (text) {
   let myMap = new Map();
   for (l of text) {
     if (myMap.has(l)) {
-      myMap.set(l, myMap.get(l) + 1);
+      //myMap.set(l, (myMap.get(l) || 0), +1)
+      myMap.set(l, myMap.get(l) + 1); //
     } else {
-      myMap.set(l, 1);
+      //
+      myMap.set(l, 1); //
     }
   }
   return Array.from(myMap.entries());
@@ -546,18 +518,18 @@ function duplicateCount(text) {
   let values = Object.values(dict);
   return values.reduce((a, b) => (b > 1 ? a + 1 : a), 0);
 }
-// Dans une entrée items, donner le nombre maximal de fois que le caractère, donné par la key, se répète de manière consécutive
+// Dans une entrée items, donner le nombre maximal de fois que le caractère key, se répète de manière consécutive
 function getConsectiveItems1(items, key) {
   let stack = "";
   items = String(items);
-  key = String(key)
+  key = String(key);
   for (l of items) {
-    l === String(key) ? (stack += l) : (stack += "s__");
+    l === key ? (stack += l) : (stack += "s__");
   }
   let arr = stack.split("s__");
   return arr.reduce((a, b) => (b.length > a.length ? b : a)).length;
 }
-function getConsectiveItems2(items, key){
+function getConsectiveItems2(items, key) {
   items = String(items);
   key = String(key);
   let compteur = 0;
@@ -573,4 +545,296 @@ function getConsectiveItems2(items, key){
     }
   }
   return max;
+}
+// Retourner la liste des ingrédients, hormis "chopsticks", en comptant le nombre de fois qu'ils apparaissent dans toute la liste donnée (string). La rendre du plus grande nombre au plus petit et si égalité de nombre, ordonner par ordre alphabétique inverse[Z => A]
+function countVegetables(string) {
+  let list = {};
+  string = string.split(" ");
+  for (let v of string) {
+    if (v !== "chopsticks") {
+      list[v] = list[v] !== undefined ? list[v] + 1 : 1; // list[v] = (list[v] || 0) + 1
+    }
+  }
+  const listing = Object.keys(list).sort((a, b) => {
+    if (list[b] === list[a]) {
+      return b.localeCompare(a); //par ordre alphabétique inverse [Z => A]
+    }
+    return list[b] - list[a];
+  });
+  return listing.map((v) => [list[v], v]);
+  // return Array.from(listing, (v) => [list[v], v]); identique
+}
+
+// Retourner une string qui contient le nombre de fois qu'une lettre apparaît dans cette string au total,suivi de la lettre en question. Attention, n'afficher le chiffre que s'il apparaît plus d'une fois.
+// 'elevation', 'e2lvation'
+// 'transplantology', 't2ra2n2spl2o2gy'
+// 'economics', 'ec2o2nmis'
+const transform = (s) => {
+  const myMap = new Map();
+  for (let l of s) {
+    myMap.set(l, (myMap.get(l) || 0) + 1);
+  }
+  let result = "";
+  for (let [key, value] of myMap) {
+    result += value === 1 ? key : key + value;
+  }
+  return result;
+};
+//Retourner simplement le nombre de fois du nombre le plus fréquent d'un tableau d'entiers
+function mostFrequentItemCount(collection) {
+  let dict = {};
+  for (n of collection) {
+    // dict[n] = dict[n]!==undefined ? dict[n]+1 : 1
+    dict[n] = (dict[n] || 0) + 1;
+  }
+  const values = Object.values(dict);
+  return Math.max(...values);
+}
+// Retourner le nombre de fois qu'un pays a remporté la coupe du monde en cherchant dans un tableau d'objets
+function countWins(winnerList, country) {
+  let count = 0;
+  for (let season of winnerList) {
+    season.country === country ? (count += 1) : count;
+  }
+  return count;
+}
+function countWins2(winnerList, country) {
+  winnerList.filter((element) => element.country === country).length;
+}
+// Convertir r,g,b en hexadecimal. Borner à 0 et 255 car r,g,b peuvent avoir n'importe qu'elle valeur entière
+function rgb(r, g, b) {
+  r > 255 ? (r = 255) : r;
+  g > 255 ? (g = 255) : g;
+  b > 255 ? (b = 255) : b;
+
+  if (!(r > 255 || r < 0 || r === 0)) {
+    r = r.toString(16).toUpperCase();
+  }
+  if (r < 0 || r === 0) {
+    r = "00";
+  }
+
+  if (!(g > 255 || g < 0 || g === 0)) {
+    g = g.toString(16).toUpperCase();
+  }
+  if (g < 0 || g === 0) {
+    g = "00";
+  }
+
+  if (!(b > 255 || b < 0 || b === 0)) {
+    b = b.toString(16).toUpperCase();
+  }
+  if (b < 0 || b === 0) {
+    b = "00";
+  }
+
+  return r + g + b;
+}
+//ou encore en double fonctions
+function rgb2(r, g, b) {
+  let res = "";
+  for (let argument of [r, g, b]) {
+    res += convertirEnHexa(argument);
+  }
+  return res;
+}
+
+function convertirEnHexa(valeur) {
+  if (valeur < 0) {
+    valeur = 0;
+  }
+  if (valeur > 255) {
+    valeur = 255;
+  }
+  return valeur.toString(16).toUpperCase().padStart(2, "0");
+}
+// Convertir au format HH:MM:SS un nombre de secondes
+function timeHumanReadable(seconds) {
+  let countHours = 0;
+  let countMinutes = 0;
+  let countSeconds = seconds;
+
+  while (countSeconds > 59) {
+    countMinutes += 1;
+    countSeconds -= 60;
+  }
+  while (countMinutes > 59) {
+    countHours += 1;
+    countMinutes -= 60;
+  }
+  countHours = String(countHours).padStart(2, "0");
+  countMinutes = String(countMinutes).padStart(2, "0");
+  countSeconds = String(countSeconds).padStart(2, "0");
+
+  return countHours + ":" + countMinutes + ":" + countSeconds;
+}
+function timeHumanReadable(seconds) {
+  const hours = String(Math.floor(seconds / 3600)).padStart(2, "0");
+  const minutes = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+  const remainingSeconds = String(seconds % 60).padStart(2, "0");
+
+  return `${hours}:${minutes}:${remainingSeconds}`;
+}
+// La vague mexicaine
+// wave("hello") => ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
+function wave(str) {
+  str = str.split("");
+  let wave = [];
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] !== " ") {
+      let ola = str.slice(0, i) + str[i].toUpperCase() + str.slice(i + 1);
+      ola = [
+        ...str.slice(0, i),
+        str[i].toUpperCase(),
+        ...str.slice(i + 1),
+      ].join("");
+      wave.push(ola);
+    }
+  }
+  return wave;
+}
+function wave2(str) {
+  let res = [];
+  for (let position = 0; position < str.length; position++) {
+    let lettre = str[position];
+    if (lettre === " ") continue;
+    let nouveauMot =
+      str.slice(0, position) + lettre.toUpperCase() + str.slice(position + 1);
+    res.push(nouveauMot);
+  }
+  return res;
+}
+// Retourner "(" si le caractère dans la string est unique et ")" au contraire
+// "din"      =>  "((("
+// "recede"   =>  "()()()"
+// "Success"  =>  ")())())"
+// "(( @"     =>  "))(("
+function duplicateEncode(word) {
+  word = word.toLowerCase();
+  let dict = {};
+  let result = "";
+  for (w of word) {
+    dict[w] = (dict[w] || 0) + 1;
+  }
+  for (w of word) {
+    dict[w] > 1 ? (result += ")") : (result += "(");
+  }
+
+  return result;
+}
+function duplicateEncode2(word) {
+  return word
+    .toLowerCase()
+    .split("")
+    .map(function (a, i, w) {
+      return w.indexOf(a) == w.lastIndexOf(a) ? "(" : ")";
+    })
+    .join("");
+}
+
+// Polynomes
+function digPow(n, p) {
+  n = String(n);
+  let polynome = 0;
+  for (let i = 0; i < n.length; i++) {
+    polynome += Math.pow(Number(n[i]), p + i);
+  }
+  return polynome % Number(n) === 0 ? polynome / Number(n) : -1;
+}
+function digPow2(n, p) {
+  let result = String(n)
+    .split("")
+    .reduce((s, d, i) => s + Math.pow(d, p + i), 0);
+  return result % n ? -1 : result / n;
+}
+// Retourner un tableau de paires et compléter avec un _ si besoin
+// * 'abc' =>  ['ab', 'c_']
+// * 'abcdef' => ['ab', 'cd', 'ef']
+function solution(str) {
+  let stack = [];
+  for (let i = 0; i < str.length; i += 2) {
+    stack.push(str.slice(i, i + 2).padEnd(2, "_"));
+  }
+  return stack;
+}
+// Renvoyer le nombre qui apparaît un nombre impair de fois dans un tableau donné
+// [7] should return 7, because it occurs 1 time (which is odd).
+// [0] should return 0, because it occurs 1 time (which is odd).
+// [1,1,2] should return 2, because it occurs 1 time (which is odd).
+// [0,1,0,1,0] should return 0, because it occurs 3 times (which is odd).
+// [1,2,2,3,3,3,4,3,3,3,2,2,1] should return 4, because it appears 1 time (which is odd).
+function findOdd(A) {
+  let dict = {};
+  for (n of A) {
+    dict[n] = (dict[n] || 0) + 1;
+  }
+  for ([key, value] of Object.entries(dict)) {
+    if (value % 2 !== 0) {
+      return Number(key);
+    }
+  }
+}
+function findOdd2(A) {
+  let dict = {};
+  for (n of A) {
+    dict[n] = (dict[n] || 0) + 1;
+  }
+  const oddStr = Number(Object.entries(dict).filter((a) => a[b] % 2 !== 0));
+  const oddNum = Number(oddStr);
+  return oddNum;
+}
+// Comparer deux strings entre elles. Renvoyer true si l'une est l'inverse de l'autre pour la casse de chaque caractère
+// "ab","AB"     -> true
+// "aB","Ab"     -> true
+// "aBcd","AbCD" -> true
+// "AB","Ab"     -> false
+// "",""         -> false
+function isOpposite(s1, s2) {
+  if ((s1 === "") & (s2 === "")) {
+    return false;
+  }
+  let s1Inverted = "";
+  for (l of s1) {
+    s1Inverted += l.toUpperCase() === l ? l.toLowerCase() : l.toUpperCase();
+  }
+  return s1Inverted === s2;
+}
+function temperature(t) {
+  let arr = [];
+  arr.push(t);
+  if (arr.length > 0) {
+    return arr.reduce((a, b) => {
+      return Math.abs(b) < Math.abs(a) || (Math.abs(a) === Math.abs(b) && b > a)
+        ? b
+        : a;
+    });
+  } else {
+    return 0;
+  }
+}
+// Convertir une lettre en binaire et coder ce binaire qu'avec des 0
+// https://www.codingame.com/ide/puzzle/unary
+let strBinary = "";
+let messageEncode = "";
+let previousBit = "";
+for (let letter of MESSAGE) {
+  strBinary += letter.codePointAt().toString(2).padStart(7, "0");
+}
+
+for (let currentBit of strBinary) {
+  // currentBit = "10000111000011"
+  if (previousBit === currentBit) {
+    messageEncode += "0";
+  } else {
+    if (messageEncode !== "") {
+      messageEncode += " ";
+    }
+    if (currentBit === "1") {
+      //messageEncode = "0 0 00 0000 0 000 00 0000 0 00"
+      messageEncode += "0 0";
+    } else {
+      messageEncode += "00 0";
+    }
+  }
+  previousBit = currentBit;
 }
