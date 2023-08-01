@@ -838,3 +838,80 @@ for (let currentBit of strBinary) {
   }
   previousBit = currentBit;
 }
+// Donner le type MIME en fonction de l'extension
+// https://www.codingame.com/ide/puzzle/mime-type
+const N = parseInt(readline()); // Number of elements which make up the association table.
+const Q = parseInt(readline()); // Number Q of file names to be analyzed.
+let dict = {};
+let extFile = "";
+
+for (let i = 0; i < N; i++) {
+  var inputs = readline().split(" ");
+  const EXT = inputs[0].toLowerCase(); // file extension
+  const MT = inputs[1]; // MIME type.
+  dict[EXT] = MT;
+}
+const FNAME = readline(); // One file name per line.
+for (let i = 0; i < Q; i++) {
+  let extIndex = FNAME.lastIndexOf(".");
+  let extFile = extIndex !== -1 ? FNAME.slice(extIndex + 1).toLowerCase() : "";
+
+  let result = dict.hasOwnProperty(extFile) ? dict[extFile] : "UNKNOWN";
+  console.log(result);
+}
+
+// Travailler avec des tableaux dans un tableau
+const xMarksTheSpot = (input) => {
+  if (Array.isArray(input) && input.length > 0) {
+    const numberX = input.flat().filter((e) => e === "x");
+    if (numberX.length !== 1) {
+      return [];
+    }
+    const rowIndex = input.findIndex((row) => row.includes("x"));
+    const colIndex = input[rowIndex].indexOf("x");
+    return [rowIndex, colIndex];
+  }
+  return [];
+};
+// Renvoyer un tableau en agençant les valeurs autour de la plus petite de toutes, en reproduisant le mouvement du pendule
+function pendulum(values) {
+  const sorted = values.sort((a, b) => a - b);
+  const result = [];
+
+  for (let i = 0; i < sorted.length; i++) {
+    if (i % 2 === 0) {
+      result.unshift(sorted[i]);
+    } else {
+      result.push(sorted[i]);
+    }
+  }
+
+  return result;
+}
+function keepOrder(ary, val) {
+  let arr = ary.slice(); // Crée une copie du tableau ary
+  arr.sort((a, b) => a - b);
+  return arr.indexOf(val);
+}
+// Pour retourner une phrase donnée mais avec les lettres inversées pour les mots de plus de 5 caractères
+function spinWords1(string) {
+  let result = [];
+  let words = string.split(" ");
+  for (let word of words) {
+    if (word.length >= 5) {
+      let wordResverse = [];
+      for (let i = 0; i < word.length; i++) {
+        wordResverse.unshift(word.slice(i,i+1));
+      }
+      word = wordResverse.join("");
+      result.push(word);
+    } else {
+      result.push(word);
+    }
+
+  }
+  return result.join(" ");
+}
+function spinWords2(string) {
+  return string.split(" ").map(word => word.length >= 5 ? word.split("").reverse().join("") : word).join(" ");
+}
